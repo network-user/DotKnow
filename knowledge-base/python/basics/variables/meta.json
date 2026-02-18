@@ -1,0 +1,22 @@
+{
+  "title": "Переменные",
+  "slug": "variables",
+  "section": "python/basics",
+  "difficulty": "easy",
+  "tags": [
+    "variables",
+    "scope",
+    "legb",
+    "naming",
+    "unpacking",
+    "references"
+  ],
+  "added": "2026-02-18",
+  "last_reviewed": null,
+  "quiz_types": [
+    "theory",
+    "code_writing",
+    "find_the_bug",
+    "fill_the_gap"
+  ]
+}

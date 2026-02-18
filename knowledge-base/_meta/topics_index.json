@@ -1,0 +1,35 @@
+[
+  {
+    "slug": "variables",
+    "path": "python/basics/variables",
+    "title": "Переменные",
+    "difficulty": "easy",
+    "tags": [
+      "variables",
+      "scope",
+      "basics"
+    ],
+    "quiz_types": [
+      "theory",
+      "code_writing",
+      "find_the_bug"
+    ]
+  },
+  {
+    "slug": "functions",
+    "path": "python/basics/functions",
+    "title": "Функции",
+    "difficulty": "easy",
+    "tags": [
+      "functions",
+      "def",
+      "return",
+      "basics"
+    ],
+    "quiz_types": [
+      "theory",
+      "code_writing",
+      "fill_the_gap"
+    ]
+  }
+]
