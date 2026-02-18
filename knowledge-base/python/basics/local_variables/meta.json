@@ -1,0 +1,15 @@
+{
+  "title": "Local Variables",
+  "slug": "local_variables",
+  "section": "python/basics",
+  "difficulty": "medium",
+  "tags": [
+    "local_variables"
+  ],
+  "added": "2026-02-18",
+  "last_reviewed": null,
+  "quiz_types": [
+    "theory",
+    "code_writing"
+  ]
+}

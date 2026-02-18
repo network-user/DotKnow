@@ -31,5 +31,18 @@
       "code_writing",
       "fill_the_gap"
     ]
+  },
+  {
+    "slug": "local_variables",
+    "path": "python/basics/local_variables",
+    "title": "Local Variables",
+    "difficulty": "medium",
+    "tags": [
+      "local_variables"
+    ],
+    "quiz_types": [
+      "theory",
+      "code_writing"
+    ]
   }
 ]
