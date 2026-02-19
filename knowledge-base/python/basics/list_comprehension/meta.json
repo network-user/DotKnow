@@ -1,0 +1,20 @@
+{
+  "title": "List Comprehensions (Списковые включения)",
+  "slug": "list_comprehension",
+  "section": "python/basics",
+  "difficulty": "medium",
+  "tags": [
+    "syntax",
+    "lists",
+    "loops",
+    "pythonic"
+  ],
+  "added": "2026-02-19",
+  "last_reviewed": null,
+  "quiz_types": [
+    "theory",
+    "code_writing",
+    "find_the_bug",
+    "fill_the_gap"
+  ]
+}
