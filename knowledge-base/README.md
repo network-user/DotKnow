@@ -58,3 +58,5 @@ python scripts/new_topic.py --lang python --section basics --topic my_topic
 
 # В будущем — другой язык
 `python scripts/new_topic.py --lang javascript --section basics --topic variables`
+
+python scripts/new_topic.py --lang python --section tools --topic closures

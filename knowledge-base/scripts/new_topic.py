@@ -3,11 +3,17 @@
 
 Использование:
     python scripts/new_topic.py --lang python --section basics --topic closures
+    python scripts/new_topic.py --lang python --section tools/pdf --topic qpdf
 
 Создаёт:
     python/basics/closures/
         closures.md
         closures.py
+        meta.json
+
+    python/tools/pdf/qpdf/
+        qpdf.md
+        qpdf.py
         meta.json
 
 И обновляет:
@@ -70,12 +76,12 @@ def create_topic(lang: str, section: str, slug: str) -> None:
 
     (topic_path / f"{slug}.md").write_text(
         MD_TEMPLATE.format(title=title, slug=slug, today=today),
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
     (topic_path / f"{slug}.py").write_text(
         PY_TEMPLATE.format(title=title, lang=lang, section=section),
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
     meta = {
@@ -86,37 +92,57 @@ def create_topic(lang: str, section: str, slug: str) -> None:
         "tags": [slug],
         "added": today,
         "last_reviewed": None,
-        "quiz_types": ["theory", "code_writing"]
+        "quiz_types": ["theory", "code_writing"],
     }
     (topic_path / "meta.json").write_text(
         json.dumps(meta, ensure_ascii=False, indent=2),
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
     index_path = ROOT / "_meta" / "topics_index.json"
-    index: list = json.loads(index_path.read_text(encoding="utf-8")) if index_path.exists() else []
+    index: list = (
+        json.loads(index_path.read_text(encoding="utf-8"))
+        if index_path.exists()
+        else []
+    )
 
-    index.append({
-        "slug": slug,
-        "path": f"{lang}/{section}/{slug}",
-        "title": title,
-        "difficulty": "medium",
-        "tags": [slug],
-        "quiz_types": ["theory", "code_writing"]
-    })
+    index.append(
+        {
+            "slug": slug,
+            "path": f"{lang}/{section}/{slug}",
+            "title": title,
+            "difficulty": "medium",
+            "tags": [slug],
+            "quiz_types": ["theory", "code_writing"],
+        }
+    )
 
     index_path.parent.mkdir(exist_ok=True)
-    index_path.write_text(json.dumps(index, ensure_ascii=False, indent=2), encoding="utf-8")
+    index_path.write_text(
+        json.dumps(index, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
 
-    print(f"[OK] Тема создана: {topic_path}")
-    print(f"[OK] topics_index.json обновлён ({len(index)} тем)")
+    print(f"[OK] Тема создана:           {topic_path}")
+    print(f"[OK] topics_index.json обновлён  ({len(index)} тем)")
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Создать новую тему в Knowledge Base")
+    parser = argparse.ArgumentParser(
+        description="Создать новую тему в Knowledge Base",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Примеры:
+  python scripts/new_topic.py --lang python --section basics --topic closures
+  python scripts/new_topic.py --lang python --section oop --topic inheritance
+  python scripts/new_topic.py --lang python --section tools/pdf --topic qpdf
+  python scripts/new_topic.py --lang python --section tools/pdf --topic ghostscript
+  python scripts/new_topic.py --lang javascript --section basics --topic variables
+        """,
+    )
     parser.add_argument("--lang",    required=True, help="Язык: python, javascript, sql")
-    parser.add_argument("--section", required=True, help="Раздел: basics, oop, async ...")
-    parser.add_argument("--topic",   required=True, help="Slug темы: closures, generators ...")
+    parser.add_argument("--section", required=True, help="Раздел: basics, oop, tools/pdf ...")
+    parser.add_argument("--topic",   required=True, help="Slug темы: closures, qpdf ...")
     args = parser.parse_args()
     create_topic(args.lang, args.section, args.topic)
 
