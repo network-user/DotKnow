@@ -19,8 +19,9 @@ last_reviewed: null
 def greet(name: str) -> str:
     return f"Привет, {name}!"
 
-say_hi = greet              # присваиваем функцию переменной (без скобок!)
-print(say_hi("Alice"))      # Привет, Alice!
+
+say_hi = greet  # присваиваем функцию переменной (без скобок!)
+print(say_hi("Alice"))  # Привет, Alice!
 
 funcs = [str.upper, str.strip, str.title]
 for f in funcs:
@@ -73,9 +74,11 @@ def create_report(
 ) -> dict:
     return {"title": title, "sections": sections, "author": author, **metadata}
 
+
 report = create_report(
     "Python Guide",
-    "Variables", "Functions",
+    "Variables",
+    "Functions",
     author="Alice",
     version="1.0",
 )
@@ -90,18 +93,22 @@ report = create_report(
 ```python
 from collections.abc import Callable
 
+
 def process(items: list[int], *, reverse: bool = False) -> list[int]:
     return sorted(items, reverse=reverse)
 
+
 # Python 3.12 — новый синтаксис type alias
 type Matrix = list[list[float]]
+
 
 # Обобщённые функции через TypeVar
 def filter_items[T](items: list[T], pred: Callable[[T], bool]) -> list[T]:
     return [x for x in items if pred(x)]
 
+
 evens = filter_items([1, 2, 3, 4, 5], lambda x: x % 2 == 0)
-print(evens)   # [2, 4]
+print(evens)  # [2, 4]
 ```
 
 ---
@@ -117,19 +124,22 @@ def bad_append(value: int, storage: list = []) -> list:
     storage.append(value)
     return storage
 
-print(bad_append(1))   # [1]
-print(bad_append(2))   # [1, 2] — тот же список!
-print(bad_append(3))   # [1, 2, 3]
+
+print(bad_append(1))  # [1]
+print(bad_append(2))  # [1, 2] — тот же список!
+print(bad_append(3))  # [1, 2, 3]
+
 
 # ХОРОШО — None как sentinel
 def good_append(value: int, storage: list | None = None) -> list:
     if storage is None:
-        storage = []    # новый список при каждом вызове
+        storage = []  # новый список при каждом вызове
     storage.append(value)
     return storage
 
-print(good_append(1))   # [1]
-print(good_append(2))   # [2] — независимый список
+
+print(good_append(1))  # [1]
+print(good_append(2))  # [2] — независимый список
 ```
 
 ---
@@ -141,22 +151,27 @@ print(good_append(2))   # [2] — независимый список
 ```python
 from collections.abc import Callable
 
+
 # Принимает функцию как аргумент
 def apply_twice(func: Callable, value):
     return func(func(value))
 
-print(apply_twice(lambda x: x * 2, 3))   # 12
+
+print(apply_twice(lambda x: x * 2, 3))  # 12
+
 
 # Фабрика функций — возвращает функцию
 def make_power(exp: int):
     def power(base: int) -> int:
-        return base ** exp   # exp захвачен из объемлющей области
+        return base**exp  # exp захвачен из объемлющей области
+
     return power
 
+
 square = make_power(2)
-cube   = make_power(3)
-print(square(4))   # 16
-print(cube(3))     # 27
+cube = make_power(3)
+print(square(4))  # 16
+print(cube(3))  # 27
 ```
 
 Встроенные функции высшего порядка: `map()`, `filter()`, `sorted()`, `max()`, `min()`.
@@ -170,22 +185,22 @@ Lambda — анонимная функция в одно выражение. И�
 ```python
 # lambda параметры: выражение
 double = lambda x: x * 2
-print(double(5))   # 10
+print(double(5))  # 10
 
 # Основное применение — key-функция
 students = [
-    {"name": "Bob",   "grade": 85},
+    {"name": "Bob", "grade": 85},
     {"name": "Alice", "grade": 92},
     {"name": "Carol", "grade": 78},
 ]
 
 by_grade = sorted(students, key=lambda s: s["grade"], reverse=True)
-print(by_grade[0]["name"])   # Alice
+print(by_grade[0]["name"])  # Alice
 
 # filter и map
 numbers = [1, 2, 3, 4, 5, 6]
-evens   = list(filter(lambda x: x % 2 == 0, numbers))   # [2, 4, 6]
-squared = list(map(lambda x: x ** 2, numbers))           # [1, 4, 9, 16, 25, 36]
+evens = list(filter(lambda x: x % 2 == 0, numbers))  # [2, 4, 6]
+squared = list(map(lambda x: x**2, numbers))  # [1, 4, 9, 16, 25, 36]
 ```
 
 > Если лямбда становится сложной или используется в нескольких местах — замени обычной функцией.
@@ -231,13 +246,14 @@ def divide(dividend: float, divisor: float) -> float:
 def factorial(n: int) -> int:
     if n < 0:
         raise ValueError("n должно быть >= 0")
-    if n <= 1:              # базовый случай
+    if n <= 1:  # базовый случай
         return 1
     return n * factorial(n - 1)
 
+
 # factorial(5) -> 5 * 4 * 3 * 2 * 1 = 120
-print(factorial(5))   # 120
-print(factorial(0))   # 1
+print(factorial(5))  # 120
+print(factorial(0))  # 1
 ```
 
 ---
@@ -251,8 +267,8 @@ def multiply(a, b):
     # return result  ← забыли!
 
 x = multiply(3, 4)
-print(x)        # None
-print(x + 1)    # TypeError: unsupported operand type(s): NoneType + int
+print(x)  # None
+print(x + 1)  # TypeError: unsupported operand type(s): NoneType + int
 ```
 
 **2. Изменяемый дефолтный аргумент** — см. раздел выше.
@@ -260,11 +276,11 @@ print(x + 1)    # TypeError: unsupported operand type(s): NoneType + int
 **3. Изменение переданного списка внутри функции:**
 ```python
 def pop_first(lst: list) -> None:
-    lst.pop(0)     # изменяет оригинал!
+    lst.pop(0)  # изменяет оригинал!
 
 data = [1, 2, 3]
 pop_first(data)
-print(data)   # [2, 3] — оригинал уничтожен
+print(data)  # [2, 3] — оригинал уничтожен
 
 # Безопасно — передавать копию:
 pop_first(data.copy())
@@ -273,7 +289,7 @@ pop_first(data.copy())
 **4. Рекурсия без базового случая:**
 ```python
 def infinite(n):
-    return infinite(n - 1)   # RecursionError: maximum recursion depth exceeded
+    return infinite(n - 1)  # RecursionError: maximum recursion depth exceeded
 ```
 
 ---

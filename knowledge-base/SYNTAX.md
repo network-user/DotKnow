@@ -172,8 +172,10 @@ print(greet("World"))
 ```python
 x = 10
 
+
 def greet(name: str) -> str:
     return f"Hello, {name}!"
+
 
 print(greet("World"))
 ```

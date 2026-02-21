@@ -21,9 +21,9 @@ last_reviewed: null
 
 ```python
 a = [1, 2, 3]
-b = a          # b — НЕ копия, а второй указатель на тот же список
+b = a  # b — НЕ копия, а второй указатель на тот же список
 b.append(4)
-print(a)       # [1, 2, 3, 4] — изменился, потому что это один объект
+print(a)  # [1, 2, 3, 4] — изменился, потому что это один объект
 ```
 
 ---
@@ -37,13 +37,13 @@ Python — язык с **динамической** и одновременно 
 
 ```python
 x = 42
-print(type(x))              # <class 'int'>
+print(type(x))  # <class 'int'>
 
 x = "hello"
-print(type(x))              # <class 'str'>
+print(type(x))  # <class 'str'>
 
 x = [1, 2, 3]
-print(isinstance(x, list))           # True
+print(isinstance(x, list))  # True
 print(isinstance(x, (list, tuple)))  # True — проверка нескольких типов сразу
 ```
 
@@ -62,17 +62,17 @@ print(isinstance(x, (list, tuple)))  # True — проверка несколь�
 **Соглашения PEP 8:**
 
 ```python
-user_name = "Alice"       # обычные переменные — snake_case
-MAX_CONNECTIONS = 100     # константы — UPPER_SNAKE_CASE
-_cache = {}               # условно приватная — одно подчёркивание
-__slots__ = ["x", "y"]   # зарезервировано Python — двойное подчёркивание
+user_name = "Alice"  # обычные переменные — snake_case
+MAX_CONNECTIONS = 100  # константы — UPPER_SNAKE_CASE
+_cache = {}  # условно приватная — одно подчёркивание
+__slots__ = ["x", "y"]  # зарезервировано Python — двойное подчёркивание
 ```
 
 **Никогда не затеняй встроенные имена:**
 
 ```python
-list = [1, 2, 3]      # list больше не встроенный тип!
-list([4, 5])          # TypeError: 'list' object is not callable
+list = [1, 2, 3]  # list больше не встроенный тип!
+list([4, 5])  # TypeError: 'list' object is not callable
 # Опасно перекрывать: list, dict, set, str, int, type, input, print, id, len
 ```
 
@@ -92,18 +92,20 @@ list([4, 5])          # TypeError: 'list' object is not callable
 ```python
 x = "global"
 
+
 def outer():
     x = "enclosing"
 
     def inner():
         x = "local"
-        print(x)    # "local" — нашли на L, дальше не идём
+        print(x)  # "local" — нашли на L, дальше не идём
 
     inner()
-    print(x)        # "enclosing"
+    print(x)  # "enclosing"
+
 
 outer()
-print(x)            # "global"
+print(x)  # "global"
 ```
 
 ---
@@ -118,9 +120,11 @@ print(x)            # "global"
 ```python
 count = 0
 
+
 def increment():
-    global count    # без этого строка count += 1 -> UnboundLocalError
+    global count  # без этого строка count += 1 -> UnboundLocalError
     count += 1
+
 
 increment()
 increment()
@@ -139,6 +143,7 @@ def make_counter():
         return count
 
     return tick
+
 
 counter = make_counter()
 print(counter())  # 1
@@ -159,7 +164,7 @@ a, b = 10, 20
 
 # Swap без временной переменной — классическая идиома Python
 a, b = b, a
-print(a, b)   # 20 10
+print(a, b)  # 20 10
 
 # Несколько переменных — одно значение
 x = y = z = 0
@@ -190,19 +195,21 @@ only, *empty = [42]
 
 ```python
 a = [1, 2, 3]
-b = [1, 2, 3]   # новый объект с теми же данными
-c = a           # тот же объект
+b = [1, 2, 3]  # новый объект с теми же данными
+c = a  # тот же объект
 
-print(a == b)   # True  — значения равны
-print(a is b)   # False — разные объекты в памяти
-print(a is c)   # True  — один и тот же объект
+print(a == b)  # True  — значения равны
+print(a is b)  # False — разные объекты в памяти
+print(a is c)  # True  — один и тот же объект
 
 # Нюанс: Python кэширует int от -5 до 256
-x = 256; y = 256
-print(x is y)   # True  — кэшируется
+x = 256
+y = 256
+print(x is y)  # True  — кэшируется
 
-x = 1000; y = 1000
-print(x is y)   # False — не кэшируется
+x = 1000
+y = 1000
+print(x is y)  # False — не кэшируется
 ```
 
 > Используй `is` только для сравнения с `None`, `True`, `False`.
@@ -216,8 +223,9 @@ print(x is y)   # False — не кэшируется
 ```python
 total = 100
 
+
 def broken():
-    print(total)   # UnboundLocalError!
+    print(total)  # UnboundLocalError!
     # Python видит total = ... ниже и считает total локальной.
     # Но до присваивания она ещё не существует.
     total = 200
@@ -228,12 +236,14 @@ def broken():
 import copy
 
 original = {"name": "Alice", "scores": [10, 20, 30]}
-shallow  = original.copy()
-deep     = copy.deepcopy(original)
+shallow = original.copy()
+deep = copy.deepcopy(original)
 
 shallow["scores"].append(99)
-print(original["scores"])   # [10, 20, 30, 99] — shallow не защитил вложенный список!
-print(deep["scores"])       # [10, 20, 30]     — deep защитил
+print(
+    original["scores"]
+)  # [10, 20, 30, 99] — shallow не защитил вложенный список!
+print(deep["scores"])  # [10, 20, 30]     — deep защитил
 ```
 
 **3. Затенение встроенных имён (см. раздел про именование)**

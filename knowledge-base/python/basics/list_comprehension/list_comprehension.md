@@ -59,7 +59,7 @@ even_squares = [i * i for i in range(10) if i % 2 == 0]
 
 ```python
 # Заменить нечётные числа на 'odd'
-result = [i if i % 2 == 0 else 'odd' for i in range(5)]
+result = [i if i % 2 == 0 else "odd" for i in range(5)]
 # [0, 'odd', 2, 'odd', 4]
 ```
 

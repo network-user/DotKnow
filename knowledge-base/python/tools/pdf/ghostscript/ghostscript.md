@@ -43,7 +43,7 @@ import sys
 import ghostscript
 
 args = [
-    "ps2pdf",          # имя программы (произвольная строка)
+    "ps2pdf",  # имя программы (произвольная строка)
     "-dNOPAUSE",
     "-dBATCH",
     "-dSAFER",
@@ -66,7 +66,9 @@ showpage
 quit
 """
 
-args = "test.py -dNOPAUSE -dBATCH -dSAFER -sDEVICE=pdfwrite -sOutputFile=/tmp/out.pdf".split()[web:5]
+args = "test.py -dNOPAUSE -dBATCH -dSAFER -sDEVICE=pdfwrite -sOutputFile=/tmp/out.pdf".split()[
+    web:5
+]
 
 with ghostscript.Ghostscript(*args) as gs:
     gs.run_string(doc)
